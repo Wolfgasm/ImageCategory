@@ -93,6 +93,10 @@ namespace ImageSource
             }
         }
 
-
+        private void Preview_Image_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            BitmapImage imagetemp = new BitmapImage(new Uri(@"D:\桌面\patches\patches3\1KcaCbHTSDaQSKGDwBpI.jpg", UriKind.Absolute));
+            Preview_Image.Source = imagetemp;
+        }
     }
 }

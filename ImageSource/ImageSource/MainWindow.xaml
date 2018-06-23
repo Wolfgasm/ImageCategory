@@ -15,7 +15,9 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Background="LightGray">
             <WrapPanel x:Name="ImageArea">
-                </WrapPanel>
+                <Image x:Name="Preview_Image" Source="D:\桌面\patches\pathes2\DdTq8D7V0AAQiMB.jpg"  MouseDown="Preview_Image_MouseDown" >
+                </Image>
+            </WrapPanel>
         </Grid>
                 <Grid Grid.Column="1">
             

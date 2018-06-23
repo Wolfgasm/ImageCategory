@@ -24,5 +24,13 @@ namespace ImageSource
         {
             InitializeComponent();
         }
+
+        private void Preview_Image_KeyDown(object sender, KeyEventArgs e)
+        {
+            BitmapImage imagetemp = new BitmapImage(new Uri(@"D:\桌面\patches\patches3\1KcaCbHTSDaQSKGDwBpI.jpg", UriKind.Absolute));
+            Preview_Image.Source = imagetemp;
+        }
+        //Image image = new Image(@"D:\桌面\patches\patches3\1KcaCbHTSDaQSKGDwBpI.jpg");
+
     }
 }
