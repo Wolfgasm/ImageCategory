@@ -55,7 +55,11 @@
                     </TextBlock>
                     <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="60" Height="15" Margin="22 235 0 0" FontFamily="Microsoft JhengHei" Foreground="Gray" TextWrapping="Wrap" >自訂標籤
                     </TextBlock>
-                    <Button Width="30" Height="30" Background="LightGray" Foreground="Gray" Margin="235 165 0 0"  FontSize="20" > +
+                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="60" Height="15" Margin="120 242 0 0" FontFamily="Microsoft JhengHei" Foreground="Gray" TextWrapping="Wrap" >到
+                    </TextBlock>
+                    <ComboBox VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 58 12" Width="80" Height="15">
+                    </ComboBox>
+                    <Button Width="40" Height="60" Background="LightGray" Foreground="Gray" Margin="235 190 0 0"  FontSize="20" > +
                     </Button>
                     <StackPanel>
                         <ComboBox Height="25" Margin="60 10 20 0">

@@ -37,8 +37,15 @@ namespace ImageSource
 
             // 將listbox選中的檔案存入路徑列表的index
             listboxIndex = Listbox1.SelectedIndex;
-            // 利用該index打開檔案
-            Process.Start(allTheFiles[listboxIndex]);
+            try
+            {
+                // 利用該index打開檔案
+                Process.Start(allTheFiles[listboxIndex]);
+            }
+            catch
+            {
+
+            }
         }
 
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
@@ -67,7 +74,7 @@ namespace ImageSource
 
                     ListBoxItem listBoxItem = new ListBoxItem();
                     
-                    if (System.IO.Path.GetExtension(dropFilepath).Contains(".jpg") || System.IO.Path.GetExtension(dropFilepath).Contains(".png"))
+                    if (System.IO.Path.GetExtension(dropFilepath).Contains(".jpg") || System.IO.Path.GetExtension(dropFilepath).Contains(".png") || System.IO.Path.GetExtension(dropFilepath).Contains(".jpeg") || System.IO.Path.GetExtension(dropFilepath).Contains(".gif"))
                     {
                         allTheFiles.Add(dropFilepath);
 
