@@ -25,7 +25,7 @@ namespace ImageSource
         {
             InitializeComponent();
         }
-        // 用來儲存檔案路徑
+        // 用來一個一個儲存檔案路徑 超好用
         string theopenfile;
         // 用來儲存listbox中的檔案路徑
         List<string> allTheFiles = new List<string>();
@@ -95,7 +95,8 @@ namespace ImageSource
 
         private void Preview_Image_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            BitmapImage imagetemp = new BitmapImage(new Uri(@"D:\桌面\patches\patches3\1KcaCbHTSDaQSKGDwBpI.jpg", UriKind.Absolute));
+            // 用來測試圖片路徑能否用在這個方法上 按下左邊的圖片 會將該圖片轉為alltheFiles中存的路徑
+            BitmapImage imagetemp = new BitmapImage(new Uri(allTheFiles[listboxIndex], UriKind.Absolute));
             Preview_Image.Source = imagetemp;
         }
     }
