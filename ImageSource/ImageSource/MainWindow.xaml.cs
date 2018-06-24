@@ -25,6 +25,11 @@ namespace ImageSource
         {
             InitializeComponent();
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // 設定combobox的初始值
@@ -51,6 +56,8 @@ namespace ImageSource
             SearchComboBox03.SelectedIndex = 0;
             SearchComboBox04.SelectedIndex = 0;
             SearchComboBox05.SelectedIndex = 0;
+
+
         }
         private void Window_Activated(object sender, EventArgs e)
         {
@@ -93,7 +100,7 @@ namespace ImageSource
             // 按下確認鈕後 將listbox裡有的檔案的檔案路徑存入taggedFiles串列中
             for (int i = 0; i < allTheFiles.Count; i++)
             {
-                taggedFiles.Add(allTheFiles[i] + "|" + AddComboBox01.SelectedItem.ToString() + "|" + AddComboBox02.SelectedItem.ToString() + "|" + AddComboBox03.SelectedItem.ToString() + "|" + AddComboBox04.SelectedItem.ToString() + "|" + AddComboBox04.SelectedItem.ToString());  
+                taggedFiles.Add(allTheFiles[i] + "|" + AddComboBox01.SelectedItem.ToString() + "|" + AddComboBox02.SelectedItem.ToString() + "|" + AddComboBox03.SelectedItem.ToString() + "|" + AddComboBox04.SelectedItem.ToString() + "|" + AddComboBox04.SelectedItem.ToString() + "|" );  
             }
 
             // 重置listbox中的東西跟allthefiles串列以便下次使用
@@ -101,11 +108,15 @@ namespace ImageSource
             allTheFiles.Clear();
             
             ImageArea_Refresh();
+            //MessageBox.Show(taggedFiles[1]);
 
         }
 
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
+
+
+            /*
             MessageBox.Show(taggedFiles[2]);
             try
             {
@@ -116,7 +127,7 @@ namespace ImageSource
             catch
             {
 
-            }
+            }*/
 
         }
 
@@ -154,23 +165,67 @@ namespace ImageSource
             }
         }
 
+        // 按下刪除紐的自訂事件
+        private void deletebtn_pressed(object sender, EventArgs e)
+        {
 
+            try
+            {
+                /*
+                // 阿你她媽都要用搜尋的方式了幹嘛不直接用ID不是更簡單嗎北七 6/24
+
+                //這個a會回傳帶有file字頭的路徑 斜線還是反的 我不知道怎麼辦啦幹
+                //喔幹我知道怎麼辦了啦幹
+                //1.去除file:斜線斜線斜線的字頭
+                string a = ((imageShow)sender).TheImagePath.Trim(new Char[] { 'f', 'i', 'l','e',':','/','/','/'});
+
+                // ---搜尋含有跟此物件一樣的路徑的串列位置 抓出來移除
+                // 一個一個比對(很吃效能的感覺...)
+                for (int i = 0; i < taggedFiles.Count; i++)
+
+                {
+                    // 新增一個可以容納taggedfile的陣列 其實6就夠了但是我多加一點保險
+                    string[] findpath = new string[10];
+
+                    // 將儲存的路徑跟TAG字串分割
+                    findpath = taggedFiles[i].Split('|');
+
+                    // 路徑存在第一個 所以用findpath[0]
+                    //2. 把斜線倒過來才跟對象物件所存的TheImagePath比較
+                    findpath[0] = findpath[0].Replace(@"\", "/");
+
+                    // 如果路徑一樣 
+                    if (findpath[0] == a)
+                    {
+                        // 從串列中刪除
+                        taggedFiles.RemoveAt(i);
+                    }
+
+                    // 測試用
+                    //MessageBox.Show(a +"------"+ findpath[0]);
+
+
+                }*/
+            }
+            catch { }
+
+            try
+            {
+
+            }
+            catch
+            {
+
+            }
+            // 從imageArea移除
+            ImageArea.Children.Remove((imageShow)sender);
+
+        }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
             Listbox1.Items.Clear();
-            /*
-            // 產生新的文字方塊
-            TextBlock tb = new TextBlock();
-            tb.Text = "暴打翔太";
-            tb.Background = Brushes.Yellow;
-            tb.Padding = new Thickness(10);
-            // 放入 StackPanel 中
-            ImageArea.Children.Add(tb);
-            imageShow imageshow = new imageShow();
-            imageshow.TheImagePath = allTheFiles[0];
-            imageshow.FileName = "123";
-            ImageArea.Children.Add(imageshow);*/
+
         }
 
         private void AddTagBtn_Click(object sender, RoutedEventArgs e)
@@ -242,8 +297,8 @@ namespace ImageSource
 
 
             // ---搜尋
-            for (int i = 0; i < taggedFiles.Count; i++)
-            {   //                                                       0     1    2    3    4    5
+            for (int i = 0; i < taggedFiles.Count ; i++)
+            {   //                                                       0     1    2    3    4    5    
                 // 這個tempforsearch陣列需要能容納至少6個變數 分別為(檔案路徑|Tag1|Tag2|Tag3|Tag4|Tag5)
                 string[] tempforSearch = new string[10];
 
@@ -345,28 +400,7 @@ namespace ImageSource
                             }
 
                         }
-                    
-                    /*
-                    if (SearchComboBox01.SelectedItem.ToString() == tempforSearch[tag])
-                    {
-                        isMatch = true;
-                    }
-                    else if(SearchComboBox02.SelectedItem.ToString() == tempforSearch[tag])
-                    {
-                        isMatch = true;
-                    }
-                    else if (SearchComboBox03.SelectedItem.ToString() == tempforSearch[tag])
-                    {
-                        isMatch = true;
-                    }
-                    else if (SearchComboBox04.SelectedItem.ToString() == tempforSearch[tag])
-                    {
-                        isMatch = true;
-                    }
-                    else if (SearchComboBox05.SelectedItem.ToString() == tempforSearch[tag])
-                    {
-                        isMatch = true;
-                    }*/
+
                 }
 
                 // 如果比對符合 加入一個imageShow物件 並將現在的數據指定給他
@@ -375,6 +409,13 @@ namespace ImageSource
                     imageShow imageshow = new imageShow();
                     // 圖片路徑存在temforSearch的第一個 將他指定給imageShow物件
                     imageshow.TheImagePath = tempforSearch[0];
+
+                    //imageshow.TheIndex = int.Parse(tempforSearch[6]);
+
+                    imageshow.deletebtn_pressed += new EventHandler(deletebtn_pressed);
+
+                    //用來標記目前在串列的哪個位置 用在刪除上
+                    imageshow.TheIndex = i;
 
                     //不需要這行 (我寫在imageShow物件了 他會自己抓)
                     //imageshow.FileName = "123";
@@ -388,6 +429,11 @@ namespace ImageSource
                 }
 
             }
+        }
+
+        private void SearchStartBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ImageArea_Refresh();
         }
     }
 }

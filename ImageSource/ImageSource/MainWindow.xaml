@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageSource"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1294" Activated="Window_Activated" Loaded="Window_Loaded">
+        Title="MainWindow" Height="800" Width="1294" Activated="Window_Activated" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="793">
@@ -17,8 +17,7 @@
             <Grid Grid.Column="0" Background="LightGray">
 
                 <WrapPanel x:Name="ImageArea" Margin="10 10 10 10">
-                    <local:imageShow >
-                    </local:imageShow>
+
                 </WrapPanel>
 
 
@@ -92,9 +91,11 @@
                     <Grid Grid.Row="1">
                         <Rectangle Fill="LightGray" Stroke="Gray" StrokeThickness="5" Margin="0 0 -5 0">
                         </Rectangle>
+
                         <StackPanel>
-                            <TextBlock Foreground="Gray" Margin="5 10 0 0">搜尋
+                            <TextBlock Foreground="Gray" Margin="7 10 0 0">搜尋
                             </TextBlock>
+
                             <ComboBox x:Name="SearchComboBox01" Width="150" Height="20" Margin="0 5 0 0" FontSize="10">
                             </ComboBox>
                             <ComboBox x:Name="SearchComboBox02" Width="150" Height="20" Margin="0 5 0 0" FontSize="10">
@@ -106,6 +107,8 @@
                             <ComboBox x:Name="SearchComboBox05" Width="150" Height="20" Margin="0 5 0 0" FontSize="10">
                             </ComboBox>
                         </StackPanel>
+                        <Button x:Name="SearchStartBtn" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Height="15" Margin="0 10 10 0" FontSize="8" FontFamily="Microsoft JhengHei" Foreground="Black"  Click="SearchStartBtn_Click" >開始
+                        </Button>
 
                     </Grid>
                     <Grid Grid.Row="0" >

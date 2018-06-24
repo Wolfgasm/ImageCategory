@@ -22,12 +22,16 @@ namespace ImageSource
     /// </summary>
     public partial class imageShow : UserControl
     {
+        string tag1, tag2, tag3, tag4, tag5;
+        int theIndex;
+        string theData;
         // 設定按鈕圖片的 get 和 set 封裝
         public string TheImagePath
         {
             get
             {
-                return Preview_Image.Source.ToString();
+                string path = Preview_Image.Source + "" ;
+                return path;
             }
             set
             {
@@ -36,7 +40,7 @@ namespace ImageSource
                 Preview_Image.Source = imagetemp;
                 //FileName.Text = value.ToString();
             }
-
+            
         }
         // 設定檔名的GETSET
         public string FileName
@@ -53,6 +57,109 @@ namespace ImageSource
 
         }
 
+        public string Tag1
+        {
+            get
+            {
+                return tag1;
+            }
+            set
+            {
+                tag1 = value.ToString();
+            }
+
+        }
+
+        public string Tag2
+        {
+            get
+            {
+                return tag2;
+            }
+            set
+            {
+                tag2 = value.ToString();
+            }
+
+        }
+        public string Tag3
+        {
+            get
+            {
+                return tag3;
+            }
+            set
+            {
+                tag3 = value.ToString();
+            }
+
+        }
+        public string Tag4
+        {
+            get
+            {
+                return tag4;
+            }
+            set
+            {
+                tag4 = value.ToString();
+            }
+
+        }
+        public string Tag5
+        {
+            get
+            {
+                return tag5;
+            }
+            set
+            {
+                tag5 = value.ToString();
+            }
+
+        }
+        public int TheIndex
+        {
+            get
+            {
+                return theIndex;
+            }
+            set
+            {
+                theIndex = value;
+            }
+
+        }
+
+        private void Preview_Image_GotFocus(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("FUCK");
+        }
+        // 新增一個叫做 deletebtn 的事件
+        public event EventHandler deletebtn_pressed;
+
+
+        private void deleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            deletebtn_pressed(this, null);
+        }
+
+        /*
+public string data
+{
+   get
+   {
+       return theData;
+   }
+   set
+   {
+       string[] temp = new string[10];
+       temp = value.Split('|');
+       theData = temp[6];                
+   }
+
+}*/
+
         public imageShow()
         {
             InitializeComponent();
@@ -68,8 +175,10 @@ namespace ImageSource
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            
+            
             // 單擊時利用路徑打開檔案
-            Process.Start(TheImagePath);
+            //Process.Start(TheImagePath);
         }
 
         private void TheFileName_Loaded(object sender, RoutedEventArgs e)
