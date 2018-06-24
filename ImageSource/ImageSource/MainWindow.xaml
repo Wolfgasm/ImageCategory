@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageSource"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1294" Activated="Window_Activated">
+        Title="MainWindow" Height="800" Width="1294" Activated="Window_Activated" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="793">

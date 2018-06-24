@@ -12,7 +12,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="5 5 5 5">
-            <Image x:Name="Preview_Image" Stretch="Fill" Source="D:\桌面\patches\pathes2\DdTq8D7V0AAQiMB.jpg" KeyDown="Preview_Image_KeyDown" >
+            <Image x:Name="Preview_Image" Stretch="UniformToFill" Source="D:\桌面\patches\pathes2\DdTq8D7V0AAQiMB.jpg" KeyDown="Preview_Image_KeyDown" >
             </Image>
         </Grid>
         <Grid Grid.Row="1">
