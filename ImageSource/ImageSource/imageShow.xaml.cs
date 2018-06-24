@@ -23,7 +23,7 @@ namespace ImageSource
     public partial class imageShow : UserControl
     {
         string tag1, tag2, tag3, tag4, tag5;
-        int theIndex;
+        string theIndex;
         string theData;
         // 設定按鈕圖片的 get 和 set 封裝
         public string TheImagePath
@@ -118,7 +118,7 @@ namespace ImageSource
             }
 
         }
-        public int TheIndex
+        public string TheIndex
         {
             get
             {

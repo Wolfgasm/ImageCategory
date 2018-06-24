@@ -74,12 +74,12 @@ namespace ImageSource
 
 
         // 
-        string theopenfile;
+
         // 用來暫存listbox中拉入的所有檔案路徑
         List<string> allTheFiles = new List<string>();
         // 用來永久儲存按下確認鈕後 加上TAG的檔案路徑和TAG
         List<string> taggedFiles = new List<string>();
-        int listboxIndex = 0;
+
         
         private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -100,7 +100,8 @@ namespace ImageSource
             // 按下確認鈕後 將listbox裡有的檔案的檔案路徑存入taggedFiles串列中
             for (int i = 0; i < allTheFiles.Count; i++)
             {
-                taggedFiles.Add(allTheFiles[i] + "|" + AddComboBox01.SelectedItem.ToString() + "|" + AddComboBox02.SelectedItem.ToString() + "|" + AddComboBox03.SelectedItem.ToString() + "|" + AddComboBox04.SelectedItem.ToString() + "|" + AddComboBox04.SelectedItem.ToString() + "|" );  
+                // 0為路徑 1~5為TAG 6為GUID
+                taggedFiles.Add(allTheFiles[i] + "|" + AddComboBox01.SelectedItem.ToString() + "|" + AddComboBox02.SelectedItem.ToString() + "|" + AddComboBox03.SelectedItem.ToString() + "|" + AddComboBox04.SelectedItem.ToString() + "|" + AddComboBox04.SelectedItem.ToString() + "|" + Guid.NewGuid().ToString("N"));  
             }
 
             // 重置listbox中的東西跟allthefiles串列以便下次使用
@@ -130,7 +131,8 @@ namespace ImageSource
             }*/
 
         }
-
+        
+        // 將檔案拉入listbox中時觸發
         private void Listbox1_Drop(object sender, DragEventArgs e)
         {
            
@@ -165,14 +167,14 @@ namespace ImageSource
             }
         }
 
-        // 按下刪除紐的自訂事件
+        // 按下imageShow上的刪除鈕的自訂事件
         private void deletebtn_pressed(object sender, EventArgs e)
         {
-
+            
             try
             {
                 /*
-                // 阿你她媽都要用搜尋的方式了幹嘛不直接用ID不是更簡單嗎北七 6/24
+                // 發現這樣很費工 重寫成下面的方式6/24
 
                 //這個a會回傳帶有file字頭的路徑 斜線還是反的 我不知道怎麼辦啦幹
                 //喔幹我知道怎麼辦了啦幹
@@ -211,14 +213,32 @@ namespace ImageSource
 
             try
             {
+                // 取得觸發此事件的物件的ID
+                string theID = ((imageShow)sender).TheIndex;
 
-            }
-            catch
-            {
+                // 搜尋含有此ID的串列
+                for (int i = 0; i < taggedFiles.Count; i++)
+                {
+                    // 新增一個能容納資料的陣列 並將資料分割進去 這邊要用的是temp[6]中存的GUID
+                    string[] temp = new string[10];
+                    temp = taggedFiles[i].Split('|');
 
+                    
+                    // 如果找到ID一樣的串列成員
+                    if (temp[6] == theID)
+                    {
+                        // 將他移除
+                        taggedFiles.RemoveAt(i);
+                    }
+                        
+                }
             }
-            // 從imageArea移除
+            catch  {}
+
+            // 從imageArea移除觸發此事件的物件
             ImageArea.Children.Remove((imageShow)sender);
+
+            
 
         }
 
@@ -298,8 +318,8 @@ namespace ImageSource
 
             // ---搜尋
             for (int i = 0; i < taggedFiles.Count ; i++)
-            {   //                                                       0     1    2    3    4    5    
-                // 這個tempforsearch陣列需要能容納至少6個變數 分別為(檔案路徑|Tag1|Tag2|Tag3|Tag4|Tag5)
+            {   //                                                       0     1    2    3    4    5   6
+                // 這個tempforsearch陣列需要能容納至少7個變數 分別為(檔案路徑|Tag1|Tag2|Tag3|Tag4|Tag5|ID)
                 string[] tempforSearch = new string[10];
 
                 // 先一個一個拆解taggedFiles內的東西
@@ -412,10 +432,11 @@ namespace ImageSource
 
                     //imageshow.TheIndex = int.Parse(tempforSearch[6]);
 
+                    // 新增事件
                     imageshow.deletebtn_pressed += new EventHandler(deletebtn_pressed);
 
-                    //用來標記目前在串列的哪個位置 用在刪除上
-                    imageshow.TheIndex = i;
+                    // 將專屬ID加入此物件 以後要刪除還是幹嘛都可以用
+                    imageshow.TheIndex = tempforSearch[6];
 
                     //不需要這行 (我寫在imageShow物件了 他會自己抓)
                     //imageshow.FileName = "123";
