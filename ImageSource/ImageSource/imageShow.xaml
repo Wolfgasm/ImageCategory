@@ -6,17 +6,17 @@
              xmlns:local="clr-namespace:ImageSource"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="AntiqueWhite" Height="160" Width="110">
+    <Grid Background="Transparent" Height="160" Width="110" MouseDown="Grid_MouseDown">
         <Grid.RowDefinitions>
             <RowDefinition Height="110"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Image x:Name="Preview_Image" Source="D:\桌面\patches\pathes2\DdTq8D7V0AAQiMB.jpg" KeyDown="Preview_Image_KeyDown" >
+        <Grid Grid.Row="0" Margin="5 5 5 5">
+            <Image x:Name="Preview_Image" Stretch="Fill" Source="D:\桌面\patches\pathes2\DdTq8D7V0AAQiMB.jpg" KeyDown="Preview_Image_KeyDown" >
             </Image>
         </Grid>
         <Grid Grid.Row="1">
-            <TextBlock Margin="5" FontSize="10">
+            <TextBlock x:Name ="TheFileName" TextWrapping="Wrap" Margin="10 0 10 5" FontSize="10" Loaded="TheFileName_Loaded">
             </TextBlock>
         </Grid>
 

@@ -11,7 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+//using System.Windows.Shapes;
+using System.Diagnostics;
+using System.IO;
 
 namespace ImageSource
 {
@@ -20,6 +22,37 @@ namespace ImageSource
     /// </summary>
     public partial class imageShow : UserControl
     {
+        // 設定按鈕圖片的 get 和 set 封裝
+        public string TheImagePath
+        {
+            get
+            {
+                return Preview_Image.Source.ToString();
+            }
+            set
+            {
+                // 設置此函數時 取得設置時的數值(就是檔案路徑)並存入imagetemp變數
+                BitmapImage imagetemp = new BitmapImage(new Uri(value.ToString(), UriKind.Absolute));
+                Preview_Image.Source = imagetemp;
+                //FileName.Text = value.ToString();
+            }
+
+        }
+        // 設定檔名的GETSET
+        public string FileName
+        {
+            get
+            {
+                return TheFileName.Text;
+            }
+            set
+            {
+                TheFileName.Text = value.ToString();
+            }
+
+
+        }
+
         public imageShow()
         {
             InitializeComponent();
@@ -27,10 +60,23 @@ namespace ImageSource
 
         private void Preview_Image_KeyDown(object sender, KeyEventArgs e)
         {
+            /*
             BitmapImage imagetemp = new BitmapImage(new Uri(@"D:\桌面\patches\patches3\1KcaCbHTSDaQSKGDwBpI.jpg", UriKind.Absolute));
             Preview_Image.Source = imagetemp;
+            */
         }
-        //Image image = new Image(@"D:\桌面\patches\patches3\1KcaCbHTSDaQSKGDwBpI.jpg");
 
+        private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // 單擊時利用路徑打開檔案
+            Process.Start(TheImagePath);
+        }
+
+        private void TheFileName_Loaded(object sender, RoutedEventArgs e)
+        {
+            // 取得存在該路徑檔案的檔名 不含副檔名
+            FileName = Path.GetFileNameWithoutExtension(TheImagePath);
+          
+        }
     }
 }

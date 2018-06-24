@@ -25,9 +25,16 @@ namespace ImageSource
         {
             InitializeComponent();
         }
-        // 用來一個一個儲存檔案路徑 超好用
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+
+        }
+
+
+        // 
         string theopenfile;
-        // 用來儲存listbox中的檔案路徑
+        // 用來儲存listbox中的所有檔案路徑
         List<string> allTheFiles = new List<string>();
         int listboxIndex = 0;
 
@@ -76,15 +83,17 @@ namespace ImageSource
                     
                     if (System.IO.Path.GetExtension(dropFilepath).Contains(".jpg") || System.IO.Path.GetExtension(dropFilepath).Contains(".png") || System.IO.Path.GetExtension(dropFilepath).Contains(".jpeg") || System.IO.Path.GetExtension(dropFilepath).Contains(".gif"))
                     {
+                        // 儲存這次拉入的檔案路徑
                         allTheFiles.Add(dropFilepath);
 
                         listBoxItem.Content = System.IO.Path.GetFileNameWithoutExtension(dropFilepath);
 
-                        // 儲存這次拉入的檔案路徑
-                        //theopenfile = dropFilepath;
+
+                        
                         
                         listBoxItem.ToolTip = dropPath;
                         Listbox1.Items.Add(listBoxItem);
+                        
                     }
 
                 }
@@ -93,11 +102,77 @@ namespace ImageSource
             }
         }
 
-        private void Preview_Image_MouseDown(object sender, MouseButtonEventArgs e)
+
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
-            // 用來測試圖片路徑能否用在這個方法上 按下左邊的圖片 會將該圖片轉為alltheFiles中存的路徑
-            BitmapImage imagetemp = new BitmapImage(new Uri(allTheFiles[listboxIndex], UriKind.Absolute));
-            Preview_Image.Source = imagetemp;
+            /*
+            // 產生新的文字方塊
+            TextBlock tb = new TextBlock();
+            tb.Text = "暴打翔太";
+            tb.Background = Brushes.Yellow;
+            tb.Padding = new Thickness(10);
+            // 放入 StackPanel 中
+            ImageArea.Children.Add(tb);*/
+            imageShow imageshow = new imageShow();
+            imageshow.TheImagePath = allTheFiles[0];
+            imageshow.FileName = "123";
+            ImageArea.Children.Add(imageshow);
         }
+
+        private void AddTagBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string addto = AddToComboBox.Text;
+            if (AddTagTextBox.Text != "")
+            {
+                switch (addto)
+                {
+                    case "Tag1":
+                    {
+                            AddComboBox01.Items.Add(AddTagTextBox.Text);
+                            AddTagTextBox.Text = "";
+                            break;
+                    }
+                    case "Tag2":
+                        {
+                            AddComboBox02.Items.Add(AddTagTextBox.Text);
+                            AddTagTextBox.Text = "";
+                            break;
+                        }
+                    case "Tag3":
+                        {
+                            AddComboBox03.Items.Add(AddTagTextBox.Text);
+                            AddTagTextBox.Text = "";
+                            break;
+                        }
+                    case "Tag4":
+                        {
+                            AddComboBox04.Items.Add(AddTagTextBox.Text);
+                            AddTagTextBox.Text = "";
+                            break;
+                        }
+                    case "Tag5":
+                        {
+                            AddComboBox05.Items.Add(AddTagTextBox.Text);
+                            AddTagTextBox.Text = "";
+                            break;
+                        }
+
+                }
+
+
+            }
+        }
+
+        private void AddToComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            AddToComboBox.Items.Add("Tag1");
+            AddToComboBox.Items.Add("Tag2");
+            AddToComboBox.Items.Add("Tag3");
+            AddToComboBox.Items.Add("Tag4");
+            AddToComboBox.Items.Add("Tag5");
+        }
+
+
     }
 }

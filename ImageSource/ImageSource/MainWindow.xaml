@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageSource"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1294">
+        Title="MainWindow" Height="800" Width="1294" Activated="Window_Activated">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="793">
@@ -13,21 +13,26 @@
             <ColumnDefinition>
             </ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Background="LightGray">
-            <WrapPanel x:Name="ImageArea">
-                <Image x:Name="Preview_Image" Source="D:\桌面\patches\pathes2\DdTq8D7V0AAQiMB.jpg"  MouseDown="Preview_Image_MouseDown" >
-                </Image>
-            </WrapPanel>
-        </Grid>
-                <Grid Grid.Column="1">
-            
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid Grid.Column="0" Background="LightGray">
+
+                <WrapPanel x:Name="ImageArea" Margin="10 10 10 10">
+                    <local:imageShow >
+                    </local:imageShow>
+                </WrapPanel>
+
+
+            </Grid>
+        </ScrollViewer>
+        <Grid Grid.Column="1">
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="490">
                 </RowDefinition>
                 <RowDefinition>
                 </RowDefinition>
             </Grid.RowDefinitions>
-            
+
             <Rectangle Fill="LightGray" Stroke="Gray" StrokeThickness="5">
             </Rectangle>
             <ListBox HorizontalAlignment="Center" VerticalAlignment="Top" AllowDrop="True" Width="323"  Height="280" Margin="50,50,50,50"  Name="Listbox1" Drop="Listbox1_Drop"></ListBox>
@@ -59,22 +64,21 @@
                     </TextBlock>
                     <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="60" Height="15" Margin="120 242 0 0" FontFamily="Microsoft JhengHei" Foreground="Gray" TextWrapping="Wrap" >到
                     </TextBlock>
-                    <ComboBox VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 58 12" Width="80" Height="15">
-                    </ComboBox>
-                    <Button Width="40" Height="60" Background="LightGray" Foreground="Gray" Margin="235 190 0 0"  FontSize="20" > +
+                    <ComboBox x:Name="AddToComboBox" HorizontalAlignment="Right" Margin="0,226,58,0" Width="80" Height="25" Loaded="AddToComboBox_Loaded"/>
+                    <Button x:Name="AddTagBtn" Width="40" Height="60" Background="LightGray" Foreground="Gray" Margin="235 190 0 0"  FontSize="20" Click="AddTagBtn_Click" >+
                     </Button>
                     <StackPanel>
-                        <ComboBox Height="25" Margin="60 10 20 0">
+                        <ComboBox x:Name="AddComboBox01" Height="25" Margin="60 10 20 0">
                         </ComboBox>
-                        <ComboBox Height="25" Margin="60 10 20 0">
+                        <ComboBox x:Name="AddComboBox02" Height="25" Margin="60 10 20 0">
                         </ComboBox>
-                        <ComboBox Height="25" Margin="60 10 20 0">
+                        <ComboBox x:Name="AddComboBox03" Height="25" Margin="60 10 20 0">
                         </ComboBox>
-                        <ComboBox Height="25" Margin="60 10 20 0">
+                        <ComboBox x:Name="AddComboBox04" Height="25" Margin="60 10 20 0">
                         </ComboBox>
-                        <ComboBox Height="25" Margin="60 10 20 0">
+                        <ComboBox x:Name="AddComboBox05" Height="25" Margin="60 10 20 0">
                         </ComboBox>
-                        <TextBox HorizontalAlignment="Left" Height="30" Width="180" Margin="60 30 20 10">
+                        <TextBox x:Name="AddTagTextBox" HorizontalAlignment="Left" Height="30" Width="180" Margin="60 30 20 10">
                         </TextBox>
                     </StackPanel>
                 </Grid>
@@ -91,15 +95,15 @@
                         <StackPanel>
                             <TextBlock Foreground="Gray" Margin="5 10 0 0">搜尋
                             </TextBlock>
-                            <ComboBox Width="150" Height="20" Margin="0 5 0 0">
+                            <ComboBox x:Name="SearchComboBox01" Width="150" Height="20" Margin="0 5 0 0" FontSize="10">
                             </ComboBox>
-                            <ComboBox Width="150" Height="20" Margin="0 5 0 0">
+                            <ComboBox x:Name="SearchComboBox02" Width="150" Height="20" Margin="0 5 0 0" FontSize="10">
                             </ComboBox>
-                            <ComboBox Width="150" Height="20" Margin="0 5 0 0">
+                            <ComboBox x:Name="SearchComboBox03" Width="150" Height="20" Margin="0 5 0 0" FontSize="10">
                             </ComboBox>
-                            <ComboBox Width="150" Height="20" Margin="0 5 0 0">
+                            <ComboBox x:Name="SearchComboBox04" Width="150" Height="20" Margin="0 5 0 0" FontSize="10">
                             </ComboBox>
-                            <ComboBox Width="150" Height="20" Margin="0 5 0 0">
+                            <ComboBox x:Name="SearchComboBox05" Width="150" Height="20" Margin="0 5 0 0" FontSize="10">
                             </ComboBox>
                         </StackPanel>
 
@@ -114,7 +118,7 @@
                         <Grid Grid.Column="0">
                             <Rectangle Fill="LightGray" Stroke="Gray" StrokeThickness="5"  Margin="0 -5 0 0">
                             </Rectangle>
-                            <Button x:Name="ConfirmBtn" Margin="5 0 5 0" Background="LightGray" Foreground="Gray" FontSize="24" FontFamily="Microsoft JhengHei" BorderThickness="0" BorderBrush="Black" Click="ConfirmBtn_Click"> 確認
+                            <Button x:Name="ConfirmBtn" Margin="5 0 5 0" Background="LightGray" Foreground="Gray" FontSize="24" FontFamily="Microsoft JhengHei" BorderThickness="0" BorderBrush="Black" Click="ConfirmBtn_Click">確認
                             </Button>
                         </Grid>
                         <Grid Grid.Column="1">
@@ -127,7 +131,7 @@
                             <Grid Grid.Row="0">
                                 <Rectangle Fill="LightGray" Stroke="Gray" StrokeThickness="5"  Margin="0 -5 0 0">
                                 </Rectangle>
-                                <Button Margin="0 0 0 5" Background="LightGray" Foreground="Gray" FontSize="18" FontFamily="Microsoft JhengHei" BorderThickness="0" BorderBrush="Black">取消
+                                <Button x:Name="CancelBtn" Margin="0 0 0 5" Background="LightGray" Foreground="Gray" FontSize="18" FontFamily="Microsoft JhengHei" BorderThickness="0" BorderBrush="Black" Click="CancelBtn_Click">取消
                                 </Button>
                             </Grid>
                             <Grid Grid.Row="1">
@@ -136,12 +140,12 @@
                             </Grid>
                         </Grid>
 
-                        </Grid>
+                    </Grid>
 
                 </Grid>
             </Grid>
         </Grid>
-        
+
 
     </Grid>
 </Window>
