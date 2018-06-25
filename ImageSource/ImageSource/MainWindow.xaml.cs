@@ -325,11 +325,11 @@ namespace ImageSource
                 // 先一個一個拆解taggedFiles內的東西
                 tempforSearch = taggedFiles[i].Split('|');
 
-                // 需要符合的數量
+                // 儲存需要符合的數量
                 int needTomatchNumber = 0;
-                // 比對後共符合的數量
+                // 儲存比對後共符合的數量
                 int nowMatch = 0;
-                // 這兩個變數在之後用來判定要不要將此物件加入imageArea
+                // 以上這兩個變數在之後用來判定要不要將此物件加入imageArea
 
                 // 先計算如果要符合搜尋條件需要符合幾次
                     if (SearchComboBox01.SelectedItem.ToString() != "")
