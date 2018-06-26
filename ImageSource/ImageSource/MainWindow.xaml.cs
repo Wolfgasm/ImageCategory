@@ -17,6 +17,14 @@ using System.IO;
 
 namespace ImageSource
 {
+    /* 筆記 紀錄一下這次缺點 想到就寫
+    
+        1.程式碼很亂
+        2.combobox應該可以用陣列包起來 現在這樣要寫很多次
+        3.搜尋這樣寫應該超級吃效能 還要再學習
+
+    */
+
     /// <summary>
     /// MainWindow.xaml 的互動邏輯
     /// </summary>
@@ -30,21 +38,96 @@ namespace ImageSource
         string folder = @"C:\temp\";
 
 
-        // 存檔路徑
+        // taggedFile存檔路徑
         string path = @"C:\temp\taggedFile.txt";
+        // Tag存檔路徑
+        string tagPath = @"C:\temp\Tags.txt";
 
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            // 儲存taggedfile
             if (!Directory.Exists(folder))
             {
                 System.IO.Directory.CreateDirectory(folder);
             }
             // 存檔
             System.IO.File.WriteAllLines(path, taggedFiles);
+
+
+            string tags;
+
+            // 儲存TAG
+            //List<string> temp = new List<string>();
+            string[] temp = new string[5];
+
+            // 儲存第1個combobox
+            for (int i = 1; i < AddComboBox01.Items.Count; i++)
+            {
+                AddComboBox01.SelectedIndex = i;
+                // 避免每次存檔都多存一個空格
+                if (!(i == AddComboBox01.Items.Count - 1))
+                {
+                    temp[0] += (AddComboBox01.Text + "|");
+                }
+                else { temp[0] += (AddComboBox01.Text ); }
+            }
+            // 儲存第2個combobox
+            for (int i = 1; i < AddComboBox02.Items.Count; i++)
+            {
+                AddComboBox02.SelectedIndex = i;
+
+                // 避免每次存檔都多存一個空格
+                if (!(i == AddComboBox01.Items.Count - 1))
+                {
+                    temp[1] += (AddComboBox02.Text + "|");
+                }
+                else { temp[1] += (AddComboBox02.Text); }
+            }
+            // 儲存第3個combobox
+            for (int i = 1; i < AddComboBox03.Items.Count; i++)
+            {
+                AddComboBox03.SelectedIndex = i;
+
+                // 避免每次存檔都多存一個空格
+                if (!(i == AddComboBox01.Items.Count - 1))
+                {
+                    temp[2] += (AddComboBox03.Text + "|");
+                }
+                else { temp[2] += (AddComboBox03.Text); }
+            }
+            // 儲存第4個combobox
+            for (int i = 1; i < AddComboBox04.Items.Count; i++)
+            {
+                AddComboBox04.SelectedIndex = i;
+
+                // 避免每次存檔都多存一個空格
+                if (!(i == AddComboBox01.Items.Count - 1))
+                {
+                    temp[3] += (AddComboBox04.Text + "|");
+                }
+                else { temp[3] += (AddComboBox04.Text); }
+            }
+            // 儲存第5個combobox
+            for (int i = 1; i < AddComboBox05.Items.Count; i++)
+            {
+                AddComboBox05.SelectedIndex = i;
+
+                // 避免每次存檔都多存一個空格
+                if (!(i == AddComboBox01.Items.Count - 1))
+                {
+                    temp[4] += (AddComboBox05.Text + "|");
+                }
+                else { temp[4] += (AddComboBox05.Text); }
+            }
+
+            // TAG存檔
+            System.IO.File.WriteAllLines(tagPath, temp);
+
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            
             // 設定combobox的初始值
             AddComboBox01.Items.Insert(0, "");
             AddComboBox02.Items.Insert(0, "");
@@ -70,7 +153,7 @@ namespace ImageSource
             SearchComboBox04.SelectedIndex = 0;
             SearchComboBox05.SelectedIndex = 0;
 
-            // 讀檔
+            // taggedFiles讀檔
             try
             {
                 // 讀取檔案內容到陣列裡
@@ -91,6 +174,52 @@ namespace ImageSource
                 // 存檔
                 System.IO.File.WriteAllLines(path, taggedFiles);
             }
+
+            // Tag讀檔
+            try
+            {
+                // 讀取檔案內容到陣列裡
+                string[] lines = System.IO.File.ReadAllLines(tagPath);
+                string[] combobox01Data = lines[0].Split('|');
+                string[] combobox02Data = lines[1].Split('|');
+                string[] combobox03Data = lines[2].Split('|');
+                string[] combobox04Data = lines[3].Split('|');
+                string[] combobox05Data = lines[4].Split('|');
+
+                foreach (string data in combobox01Data)
+                {
+                    AddComboBox01.Items.Add(data);
+                }
+                foreach (string data in combobox02Data)
+                {
+                    AddComboBox02.Items.Add(data);
+                }
+                foreach (string data in combobox03Data)
+                {
+                    AddComboBox03.Items.Add(data);
+                }
+                foreach (string data in combobox04Data)
+                {
+                    AddComboBox04.Items.Add(data);
+                }
+                foreach (string data in combobox05Data)
+                {
+                    AddComboBox05.Items.Add(data);
+                }
+            }
+            catch
+            {
+                // 如果目的點沒有資料夾新建一個資料夾
+                if (!Directory.Exists(folder))
+                {
+                    System.IO.Directory.CreateDirectory(folder);
+                }
+                // 存檔
+                System.IO.File.WriteAllLines(path, taggedFiles);
+            }
+
+
+
 
             // 重整頁面
             ImageArea_Refresh();
