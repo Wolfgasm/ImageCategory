@@ -6,12 +6,13 @@
              xmlns:local="clr-namespace:ImageSource"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="Transparent" Height="180" Width="110" MouseDown="Grid_MouseDown">
+    <Grid Background="Transparent" Height="180" Width="110" MouseDown="Grid_MouseDown" >
         <Grid.RowDefinitions>
             <RowDefinition Height="130"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-    
+        <Rectangle x:Name="SelectMark" Fill="Gold" Visibility="Collapsed">
+        </Rectangle>
         <Grid Grid.Row="0" Margin="5 5 5 5">
 
             <Image x:Name="Preview_Image" Stretch="UniformToFill" Source="D:\桌面\patches\pathes2\DdTq8D7V0AAQiMB.jpg" KeyDown="Preview_Image_KeyDown" GotFocus="Preview_Image_GotFocus" >

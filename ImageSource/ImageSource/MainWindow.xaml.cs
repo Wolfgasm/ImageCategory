@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.IO;
 
 namespace ImageSource
 {
@@ -25,10 +26,22 @@ namespace ImageSource
         {
             InitializeComponent();
         }
+        // 新建資料夾路徑
+        string folder = @"C:\temp\";
+
+
+        // 存檔路徑
+        string path = @"C:\temp\taggedFile.txt";
+
 
         private void Window_Closed(object sender, EventArgs e)
         {
-
+            if (!Directory.Exists(folder))
+            {
+                System.IO.Directory.CreateDirectory(folder);
+            }
+            // 存檔
+            System.IO.File.WriteAllLines(path, taggedFiles);
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -57,6 +70,32 @@ namespace ImageSource
             SearchComboBox04.SelectedIndex = 0;
             SearchComboBox05.SelectedIndex = 0;
 
+            // 讀檔
+            try
+            {
+                // 讀取檔案內容到陣列裡
+                string[] lines = System.IO.File.ReadAllLines(path);
+
+                foreach (string line in lines)
+                {
+                    taggedFiles.Add(line);
+                }
+            }
+            catch
+            {
+                // 如果目的點沒有資料夾新建一個資料夾
+                if (!Directory.Exists(folder))
+                {
+                    System.IO.Directory.CreateDirectory(folder);
+                }
+                // 存檔
+                System.IO.File.WriteAllLines(path, taggedFiles);
+            }
+
+            // 重整頁面
+            ImageArea_Refresh();
+
+
 
         }
         private void Window_Activated(object sender, EventArgs e)
@@ -71,7 +110,7 @@ namespace ImageSource
             
          
         }
-
+        
 
         // 
 
@@ -81,6 +120,11 @@ namespace ImageSource
         List<string> taggedFiles = new List<string>();
 
         
+
+    
+
+
+
         private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
         {
 
@@ -238,6 +282,29 @@ namespace ImageSource
             // 從imageArea移除觸發此事件的物件
             ImageArea.Children.Remove((imageShow)sender);
 
+            
+
+        }
+
+        private void ShowImformation(object sender, EventArgs e)
+        {
+            if (((imageShow)sender).Selected == true )
+            {
+                AddComboBox01.SelectedItem = ((imageShow)sender).Tag1;
+                AddComboBox02.SelectedItem = ((imageShow)sender).Tag2;
+                AddComboBox03.SelectedItem = ((imageShow)sender).Tag3;
+                AddComboBox04.SelectedItem = ((imageShow)sender).Tag4;
+                AddComboBox05.SelectedItem = ((imageShow)sender).Tag5;
+            }
+            
+
+
+
+        }
+
+        private void LoseFocus(object sender, EventArgs e)
+        {
+            ((imageShow)sender).Selected = false;
             
 
         }
@@ -434,12 +501,21 @@ namespace ImageSource
 
                     // 新增事件
                     imageshow.deletebtn_pressed += new EventHandler(deletebtn_pressed);
+                    imageshow.Selected_image += new EventHandler(ShowImformation);
+
 
                     // 將專屬ID加入此物件 以後要刪除還是幹嘛都可以用
                     imageshow.TheIndex = tempforSearch[6];
 
                     //不需要這行 (我寫在imageShow物件了 他會自己抓)
                     //imageshow.FileName = "123";
+
+                    // 將圖片屬性存入自訂元件
+                    imageshow.Tag1 = tempforSearch[1];
+                    imageshow.Tag2 = tempforSearch[2];
+                    imageshow.Tag3 = tempforSearch[3];
+                    imageshow.Tag4 = tempforSearch[4];
+                    imageshow.Tag5 = tempforSearch[5];
 
                     // 設定完了 加入imageShow物件~
                     ImageArea.Children.Add(imageshow);
@@ -455,6 +531,18 @@ namespace ImageSource
         private void SearchStartBtn_Click(object sender, RoutedEventArgs e)
         {
             ImageArea_Refresh();
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //imageShow.Selected = false;
+            
+            
+        }
+
+        private void AddComboBox01_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //ChangeTag(this, null);
         }
     }
 }

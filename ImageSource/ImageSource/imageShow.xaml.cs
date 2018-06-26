@@ -22,9 +22,39 @@ namespace ImageSource
     /// </summary>
     public partial class imageShow : UserControl
     {
+        bool isSelected = false;
         string tag1, tag2, tag3, tag4, tag5;
         string theIndex;
         string theData;
+        // 新增一個叫做 deletebtn 的事件
+        public event EventHandler deletebtn_pressed;
+        public event EventHandler Selected_image;
+
+        
+        
+
+        public bool Selected
+        {
+            get
+            {
+                return isSelected;
+            }
+            set
+            {
+                if (value == false)
+                {
+                    SelectMark.Visibility = Visibility.Collapsed;
+                    isSelected = false;
+                }
+                else if (value == true)
+                {
+                    SelectMark.Visibility = Visibility.Visible;
+                    isSelected = true;
+                }
+            }
+
+        }
+
         // 設定按鈕圖片的 get 和 set 封裝
         public string TheImagePath
         {
@@ -135,8 +165,7 @@ namespace ImageSource
         {
             MessageBox.Show("FUCK");
         }
-        // 新增一個叫做 deletebtn 的事件
-        public event EventHandler deletebtn_pressed;
+
 
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
@@ -144,21 +173,8 @@ namespace ImageSource
             deletebtn_pressed(this, null);
         }
 
-        /*
-public string data
-{
-   get
-   {
-       return theData;
-   }
-   set
-   {
-       string[] temp = new string[10];
-       temp = value.Split('|');
-       theData = temp[6];                
-   }
+        
 
-}*/
 
         public imageShow()
         {
@@ -167,18 +183,14 @@ public string data
 
         private void Preview_Image_KeyDown(object sender, KeyEventArgs e)
         {
-            /*
-            BitmapImage imagetemp = new BitmapImage(new Uri(@"D:\桌面\patches\patches3\1KcaCbHTSDaQSKGDwBpI.jpg", UriKind.Absolute));
-            Preview_Image.Source = imagetemp;
-            */
+
         }
 
         private void Grid_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            select();
+            Selected_image(this, null);
             
-            
-            // 單擊時利用路徑打開檔案
-            //Process.Start(TheImagePath);
         }
 
         private void TheFileName_Loaded(object sender, RoutedEventArgs e)
@@ -186,6 +198,21 @@ public string data
             // 取得存在該路徑檔案的檔名 不含副檔名
             FileName = Path.GetFileNameWithoutExtension(TheImagePath);
           
+        }
+
+        public void select()
+        {
+            if (SelectMark.Visibility == Visibility.Collapsed)
+            {
+                SelectMark.Visibility = Visibility.Visible;
+                isSelected = true;
+            }
+            else if (SelectMark.Visibility == Visibility.Visible)
+            {
+                SelectMark.Visibility = Visibility.Collapsed;
+                isSelected = false;
+            }
+            
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageSource"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1294" Activated="Window_Activated" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="MainWindow" Height="800" Width="1294" Activated="Window_Activated" Loaded="Window_Loaded" Closed="Window_Closed" MouseDown="Window_MouseDown">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="793">
@@ -67,7 +67,7 @@
                     <Button x:Name="AddTagBtn" Width="40" Height="60" Background="LightGray" Foreground="Gray" Margin="235 190 0 0"  FontSize="20" Click="AddTagBtn_Click" >+
                     </Button>
                     <StackPanel>
-                        <ComboBox x:Name="AddComboBox01" Height="25" Margin="60 10 20 0">
+                        <ComboBox x:Name="AddComboBox01" Height="25" Margin="60 10 20 0" SelectionChanged="AddComboBox01_SelectionChanged" >
                         </ComboBox>
                         <ComboBox x:Name="AddComboBox02" Height="25" Margin="60 10 20 0">
                         </ComboBox>
