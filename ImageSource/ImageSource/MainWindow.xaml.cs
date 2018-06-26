@@ -134,12 +134,14 @@ namespace ImageSource
             AddComboBox03.Items.Insert(0, "");
             AddComboBox04.Items.Insert(0, "");
             AddComboBox05.Items.Insert(0, "");
+            
             // 設定combobox的初始值
             SearchComboBox01.Items.Insert(0, "");
             SearchComboBox02.Items.Insert(0, "");
             SearchComboBox03.Items.Insert(0, "");
             SearchComboBox04.Items.Insert(0, "");
             SearchComboBox05.Items.Insert(0, "");
+            
             // 設定combobox的初始選項
             AddComboBox01.SelectedIndex = 0;
             AddComboBox02.SelectedIndex = 0;
@@ -189,23 +191,42 @@ namespace ImageSource
                 foreach (string data in combobox01Data)
                 {
                     AddComboBox01.Items.Add(data);
+                    //AddComboBox01.Items.RemoveAt(AddComboBox01.Items.Count - 1);
+                    SearchComboBox01.Items.Add(data);
+                    //SearchComboBox01.Items.RemoveAt(SearchComboBox01.Items.Count - 1);
+
                 }
                 foreach (string data in combobox02Data)
                 {
                     AddComboBox02.Items.Add(data);
+                    //AddComboBox02.Items.RemoveAt(AddComboBox02.Items.Count - 1);
+                    SearchComboBox02.Items.Add(data);
+                    //SearchComboBox02.Items.RemoveAt(SearchComboBox02.Items.Count - 1);
                 }
                 foreach (string data in combobox03Data)
                 {
                     AddComboBox03.Items.Add(data);
+                   // AddComboBox03.Items.RemoveAt(AddComboBox03.Items.Count - 1);
+                    SearchComboBox03.Items.Add(data);
+                    //SearchComboBox03.Items.RemoveAt(SearchComboBox03.Items.Count - 1);
                 }
                 foreach (string data in combobox04Data)
                 {
                     AddComboBox04.Items.Add(data);
+                    //AddComboBox04.Items.RemoveAt(AddComboBox04.Items.Count - 1);
+                    SearchComboBox04.Items.Add(data);
+                    //SearchComboBox04.Items.RemoveAt(SearchComboBox04.Items.Count - 1);
                 }
                 foreach (string data in combobox05Data)
                 {
                     AddComboBox05.Items.Add(data);
+                   // AddComboBox05.Items.RemoveAt(AddComboBox05.Items.Count - 1);
+                    SearchComboBox05.Items.Add(data);
+                    //SearchComboBox05.Items.RemoveAt(SearchComboBox05.Items.Count - 1);
                 }
+                /*AddComboBox01.Items.RemoveAt(AddComboBox01.Items.Count - 1);
+                SearchComboBox01.Items.RemoveAt(SearchComboBox01.Items.Count - 1);*/
+
             }
             catch
             {
@@ -241,7 +262,7 @@ namespace ImageSource
         }
         
 
-        // 
+        
 
         // 用來暫存listbox中拉入的所有檔案路徑
         List<string> allTheFiles = new List<string>();
@@ -253,7 +274,7 @@ namespace ImageSource
     
 
 
-
+        
         private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
         {
 
