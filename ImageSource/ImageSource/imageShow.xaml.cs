@@ -14,6 +14,10 @@ using System.Windows.Navigation;
 //using System.Windows.Shapes;
 using System.Diagnostics;
 using System.IO;
+using System.Drawing;
+using System.Windows.Interop;
+
+
 
 namespace ImageSource
 {
@@ -25,7 +29,6 @@ namespace ImageSource
         bool isSelected = false;
         string tag1, tag2, tag3, tag4, tag5;
         string theIndex;
-        string theData;
         // 新增一個叫做 deletebtn 的事件
         public event EventHandler deletebtn_pressed;
         public event EventHandler Selected_image;
@@ -54,27 +57,76 @@ namespace ImageSource
             }
 
         }
-
+        string thedata;
         // 設定按鈕圖片的 get 和 set 封裝
         public string TheImagePath
         {
             get
             {
-                string path = Preview_Image.Source + "" ;
-                return path;
+                /* string path = Preview_Image.Source + "" ;
+                 return path;*/
+                return thedata;
             }
             set
             {
                 try
                 {
+                    //------------------------------------------------------------------------------------------------這邊在吃效能------------------------------------------------------------------------------------------------
                     // 設置此函數時 取得設置時的數值(就是檔案路徑)並存入imagetemp變數
-                    BitmapImage imagetemp = new BitmapImage(new Uri(value.ToString(), UriKind.Absolute));
-                    Preview_Image.Source = imagetemp;
-                    //FileName.Text = value.ToString();
+                    /*BitmapImage imagetemp = new BitmapImage(new Uri(value.ToString(), UriKind.Absolute));
+                    Preview_Image.Source = imagetemp;*/
+                    //--------------------以下
+                    /*
+                    using (BinaryReader loader = new BinaryReader(File.Open(value, FileMode.Open)))
+                    {
+                        FileInfo fd = new FileInfo(value);
+                        int Length = (int)fd.Length;
+                        byte[] buf = new byte[Length];
+                        buf = loader.ReadBytes((int)fd.Length);
+                        loader.Dispose();
+                        loader.Close();
+
+
+                        //开始加载图像
+                        BitmapImage bim = new BitmapImage();
+                        bim.BeginInit();
+                        //bim.StreamSource = 
+                        bim.StreamSource = new MemoryStream(buf);
+                        bim.EndInit();
+                        Preview_Image.Source = bim;
+                        GC.Collect(); //强制回收资源
+                    }*/
+                    
+                    System.IO.FileStream fs =new System.IO.FileStream(value,System.IO.FileMode.Open, System.IO.FileAccess.Read);
+                    thedata = value;
+                    byte[] buffer = new byte[fs.Length];
+                    fs.Read(buffer, 0, buffer.Length);
+                    fs.Close();
+                    fs.Dispose();
+
+                    System.IO.MemoryStream ms = new System.IO.MemoryStream(buffer);
+                    BitmapImage bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.StreamSource = ms;
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.EndInit();
+                    ms.Close();
+                    ms.Dispose();
+                    Preview_Image.Source = bitmapImage;
+                    
+
+
+                    //MessageBox.Show(Preview_Image.Source.Width + "");
+
+
+
+
+
                 }
                 catch
                 {
                     MessageBox.Show("遺失了一張圖片路徑,這可能是因為C:\\temp中的文件遭到手動修改" + "\r\n" + ",建議您在左側刪除顯示遺失的物件");
+                    
                 }
             }
             
@@ -178,6 +230,9 @@ namespace ImageSource
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
             deletebtn_pressed(this, null);
+
+         
+
         }
 
         
@@ -197,7 +252,9 @@ namespace ImageSource
         {
             select();
             Selected_image(this, null);
-            Process.Start(Preview_Image.Source.ToString());
+            // Process.Start(Preview_Image.Source.ToString());
+            Process.Start(thedata);
+                       
             
         }
 
@@ -221,6 +278,32 @@ namespace ImageSource
                 isSelected = false;
             }
             
+        }
+
+        private Bitmap BitmapImage2Bitmap(BitmapImage bitmapImage)
+        {
+            // BitmapImage bitmapImage = new BitmapImage(new Uri("../Images/test.png", UriKind.Relative));
+
+            using (MemoryStream outStream = new MemoryStream())
+            {
+                BitmapEncoder enc = new BmpBitmapEncoder();
+                enc.Frames.Add(BitmapFrame.Create(bitmapImage));
+                enc.Save(outStream);
+                System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(outStream);
+
+                return new Bitmap(bitmap);
+            }
+
+      
+        }
+        private BitmapImage Bitmap2BitmapImage(Bitmap bitmap)
+        {
+            BitmapSource i = Imaging.CreateBitmapSourceFromHBitmap(
+                           bitmap.GetHbitmap(),
+                           IntPtr.Zero,
+                           Int32Rect.Empty,
+                           BitmapSizeOptions.FromEmptyOptions());
+            return (BitmapImage)i;
         }
     }
 }

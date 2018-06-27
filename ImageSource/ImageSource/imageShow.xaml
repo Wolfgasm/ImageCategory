@@ -15,13 +15,13 @@
         </Rectangle>
         <Grid Grid.Row="0" Margin="5 5 5 5">
 
-            <Image x:Name="Preview_Image" Stretch="UniformToFill" Source="D:\桌面\patches\pathes2\DdTq8D7V0AAQiMB.jpg" KeyDown="Preview_Image_KeyDown" GotFocus="Preview_Image_GotFocus" >
+            <Image x:Name="Preview_Image" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="UniformToFill" Width="130" Height="118" Margin="5 5 5 5" Source="D:\桌面\patches\pathes2\DdTq8D7V0AAQiMB.jpg" KeyDown="Preview_Image_KeyDown" GotFocus="Preview_Image_GotFocus" >
             </Image>
             <Button x:Name="deleteBtn" HorizontalAlignment="Right" VerticalAlignment="Top" Height="15" Width="15" Margin="0 0 0 0" Background="DarkGray" FontSize="8" FontFamily="Times New Roman" Click="deleteBtn_Click"  >X
             </Button>
         </Grid>
         <Grid Grid.Row="1">
-            <TextBlock x:Name ="TheFileName" TextWrapping="Wrap" Margin="10 0 10 5" FontSize="10" Loaded="TheFileName_Loaded">
+            <TextBlock x:Name ="TheFileName" TextWrapping="Wrap" Margin="10 0 10 5" Foreground="White" FontSize="10" Loaded="TheFileName_Loaded">
             </TextBlock>
         </Grid>
 

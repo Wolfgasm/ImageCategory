@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageSource"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1294" Activated="Window_Activated" Loaded="Window_Loaded" Closed="Window_Closed" MouseDown="Window_MouseDown">
+        Title="MainWindow" Height="800" Width="1294" Loaded="Window_Loaded" Closed="Window_Closed" >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="793">
@@ -14,7 +14,7 @@
             </ColumnDefinition>
         </Grid.ColumnDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <Grid Grid.Column="0" Background="LightGray">
+            <Grid Grid.Column="0" Background="#1e2022">
 
                 <WrapPanel x:Name="ImageArea" Margin="10 10 10 10">
 
@@ -32,9 +32,9 @@
                 </RowDefinition>
             </Grid.RowDefinitions>
 
-            <Rectangle Fill="LightGray" Stroke="Gray" StrokeThickness="5">
+            <Rectangle Fill="#1e2022" Stroke="Gray" StrokeThickness="5">
             </Rectangle>
-            <TextBlock Height="50" Width="300" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="120 20 0 0" FontSize="20" FontFamily="Microsoft JhengHei">拉入你想要附加標籤的圖片
+            <TextBlock Height="50" Width="300" VerticalAlignment="Top" Foreground="#c9d6df" HorizontalAlignment="Left" Margin="120 20 0 0" FontSize="20" FontFamily="Microsoft JhengHei">拉入你想要附加標籤的圖片
             </TextBlock>
             <ListBox HorizontalAlignment="Center" VerticalAlignment="Top" AllowDrop="True" Width="323"  Height="280" Margin="50,50,50,50"  Name="Listbox1" Drop="Listbox1_Drop"></ListBox>
 
@@ -47,29 +47,29 @@
                     </ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="1">
-                    <Rectangle Fill="LightGray" Stroke="Gray" StrokeThickness="5"  Margin="0 -5 0 0">
+                    <Rectangle Fill="#1e2022" Stroke="Gray" StrokeThickness="5"  Margin="0 -5 0 0">
                     </Rectangle>
-                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="50" Height="25" Margin="10 15 0 0" FontFamily="Microsoft JhengHei" Foreground="Gray" >Tag 1
+                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left"  TextAlignment="Center" Width="50" Height="25" Margin="10 15 0 0" FontFamily="Microsoft JhengHei" Foreground="#c9d6df" >Tag 1
                     </TextBlock>
-                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="50" Height="25" Margin="10 50 0 0" FontFamily="Microsoft JhengHei" Foreground="Gray" >Tag 2
+                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="50" Height="25" Margin="10 50 0 0" FontFamily="Microsoft JhengHei" Foreground="#c9d6df" >Tag 2
                     </TextBlock>
-                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="50" Height="25" Margin="10 85 0 0" FontFamily="Microsoft JhengHei" Foreground="Gray" >Tag 3
+                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="50" Height="25" Margin="10 85 0 0" FontFamily="Microsoft JhengHei" Foreground="#c9d6df" >Tag 3
                     </TextBlock>
-                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="50" Height="25" Margin="10 120 0 0" FontFamily="Microsoft JhengHei" Foreground="Gray" >Tag 4
+                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="50" Height="25" Margin="10 120 0 0" FontFamily="Microsoft JhengHei" Foreground="#c9d6df" >Tag 4
                     </TextBlock>
-                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="50" Height="25" Margin="10 155 0 0" FontFamily="Microsoft JhengHei" Foreground="Gray" >Tag 5
+                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="50" Height="25" Margin="10 155 0 0" FontFamily="Microsoft JhengHei" Foreground="#c9d6df" >Tag 5
                     </TextBlock>
-                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="40" Height="15" Margin="20 215 0 0" FontFamily="Microsoft JhengHei" Foreground="Gray" TextWrapping="Wrap" >新增 -
+                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="40" Height="15" Margin="20 215 0 0" FontFamily="Microsoft JhengHei" Foreground="#c9d6df" TextWrapping="Wrap" >新增 -
                     </TextBlock>
-                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="60" Height="15" Margin="22 235 0 0" FontFamily="Microsoft JhengHei" Foreground="Gray" TextWrapping="Wrap" >自訂標籤
+                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="60" Height="15" Margin="22 235 0 0" FontFamily="Microsoft JhengHei" Foreground="#c9d6df" TextWrapping="Wrap" >自訂標籤
                     </TextBlock>
-                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="60" Height="15" Margin="120 242 0 0" FontFamily="Microsoft JhengHei" Foreground="Gray" TextWrapping="Wrap" >到
+                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center" Width="60" Height="15" Margin="120 242 0 0" FontFamily="Microsoft JhengHei" Foreground="#c9d6df" TextWrapping="Wrap" >到
                     </TextBlock>
                     <ComboBox x:Name="AddToComboBox" HorizontalAlignment="Right" Margin="0,226,58,0" Width="80" Height="25" Loaded="AddToComboBox_Loaded"/>
                     <Button x:Name="AddTagBtn" Width="40" Height="60" Background="LightGray" Foreground="Gray" Margin="235 190 0 0"  FontSize="20" Click="AddTagBtn_Click" >+
                     </Button>
                     <StackPanel>
-                        <ComboBox x:Name="AddComboBox01" Height="25" Margin="60 10 20 0" SelectionChanged="AddComboBox01_SelectionChanged" >
+                        <ComboBox x:Name="AddComboBox01" Height="25" Margin="60 10 20 0"  >
                         </ComboBox>
                         <ComboBox x:Name="AddComboBox02" Height="25" Margin="60 10 20 0">
                         </ComboBox>
@@ -91,11 +91,11 @@
                         </RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="1">
-                        <Rectangle Fill="LightGray" Stroke="Gray" StrokeThickness="5" Margin="0 0 -5 0">
+                        <Rectangle Fill="#1e2022" Stroke="Gray" StrokeThickness="5" Margin="0 0 -5 0">
                         </Rectangle>
 
                         <StackPanel>
-                            <TextBlock Foreground="Gray" Margin="7 10 0 0">搜尋
+                            <TextBlock Foreground="#c9d6df" Margin="7 10 0 0">搜尋
                             </TextBlock>
 
                             <ComboBox x:Name="SearchComboBox01" Width="150" Height="20" Margin="0 5 0 0" FontSize="10">
@@ -123,7 +123,7 @@
                         <Grid Grid.Column="0">
                             <Rectangle Fill="LightGray" Stroke="Gray" StrokeThickness="5"  Margin="0 -5 0 0">
                             </Rectangle>
-                            <Button x:Name="ConfirmBtn" Margin="5 0 5 0" Background="LightGray" Foreground="Gray" FontSize="24" FontFamily="Microsoft JhengHei" BorderThickness="0" BorderBrush="Black" Click="ConfirmBtn_Click">確認
+                            <Button x:Name="ConfirmBtn" Margin="5 0 5 0" Background="#1e2022" Foreground="White" FontSize="24" FontFamily="Microsoft JhengHei" BorderThickness="0" BorderBrush="Black" Click="ConfirmBtn_Click">確認
                             </Button>
                         </Grid>
                         <Grid Grid.Column="1">
@@ -136,11 +136,11 @@
                             <Grid Grid.Row="0">
                                 <Rectangle Fill="LightGray" Stroke="Gray" StrokeThickness="5"  Margin="0 -5 0 0">
                                 </Rectangle>
-                                <Button x:Name="CancelBtn" Margin="0 0 0 5" Background="LightGray" Foreground="Gray" FontSize="18" FontFamily="Microsoft JhengHei" BorderThickness="0" BorderBrush="Black" Click="CancelBtn_Click">取消
+                                <Button x:Name="CancelBtn" Margin="0 0 0 5" Background="#1e2022" Foreground="#c9d6df" FontSize="18" FontFamily="Microsoft JhengHei" BorderThickness="0" BorderBrush="Black" Click="CancelBtn_Click">取消
                                 </Button>
                             </Grid>
                             <Grid Grid.Row="1">
-                                <Button x:Name="RemoveBtn" Background="LightGray" Foreground="Gray" FontSize="18" FontFamily="Microsoft JhengHe" BorderThickness="0" BorderBrush="Black" Click="RemoveBtn_Click">移除
+                                <Button x:Name="RemoveBtn" Background="#1e2022" Foreground="#c9d6df" FontSize="18" FontFamily="Microsoft JhengHe" BorderThickness="0" BorderBrush="Black" Click="RemoveBtn_Click">移除
                                 </Button>
                             </Grid>
                         </Grid>

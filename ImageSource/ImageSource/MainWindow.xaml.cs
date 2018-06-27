@@ -15,15 +15,18 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using System.IO;
 
+
 namespace ImageSource
 {
     /* 筆記 紀錄一下這次缺點 想到就寫
     
         1.程式碼很亂
         2.combobox應該可以用陣列包起來 現在這樣要寫很多次
-        3.搜尋這樣寫應該超級吃效能 還要再學習
+        3.搜尋這樣寫超級吃效能 還要再學習
 
     */
+
+     
 
     /// <summary>
     /// MainWindow.xaml 的互動邏輯
@@ -44,6 +47,12 @@ namespace ImageSource
         string tagPath = @"C:\temp\Tags.txt";
 
 
+        // 用來暫存listbox中拉入的所有檔案路徑
+        List<string> allTheFiles = new List<string>();
+        // 用來永久儲存按下確認鈕後 加上TAG的檔案路徑和TAG
+        List<string> taggedFiles = new List<string>();
+
+        // 當程式關閉時
         private void Window_Closed(object sender, EventArgs e)
         {
             // 儲存taggedfile
@@ -51,15 +60,12 @@ namespace ImageSource
             {
                 System.IO.Directory.CreateDirectory(folder);
             }
+
             // 存檔
             System.IO.File.WriteAllLines(path, taggedFiles);
+ 
+            var temp = new string[5];
 
-
-            string tags;
-
-            // 儲存TAG
-            //List<string> temp = new List<string>();
-            string[] temp = new string[5];
 
             // 儲存第1個combobox
             for (int i = 0; i < AddComboBox01.Items.Count; i++)
@@ -120,30 +126,17 @@ namespace ImageSource
                 }
                 else { temp[4] += (AddComboBox05.Text); }
             }
-            /*
-            foreach (string temps in temp)
-            {
-                temps.Trim(new Char[] { '|' });
-            }*/
-
 
 
             // TAG存檔
             System.IO.File.WriteAllLines(tagPath, temp);
 
         }
+
+        // 開啟程式時
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            
-            // 設定combobox的初始值
-            if(SearchComboBox01.Items.Count == 0) SearchComboBox01.Items.Insert(0, "");
-            
-            SearchComboBox02.Items.Insert(0, "");
-            SearchComboBox03.Items.Insert(0, "");
-            SearchComboBox04.Items.Insert(0, "");
-            SearchComboBox05.Items.Insert(0, "");
-            
             // 設定combobox的初始選項
             AddComboBox01.SelectedIndex = 0;
             AddComboBox02.SelectedIndex = 0;
@@ -157,12 +150,11 @@ namespace ImageSource
             SearchComboBox04.SelectedIndex = 0;
             SearchComboBox05.SelectedIndex = 0;
 
-            // taggedFiles讀檔
+            // ----taggedFiles讀檔
             try
             {
                 // 讀取檔案內容到陣列裡
-                string[] lines = System.IO.File.ReadAllLines(path);
-
+                var lines = System.IO.File.ReadAllLines(path); ;
                 foreach (string line in lines)
                 {
                     taggedFiles.Add(line);
@@ -179,57 +171,46 @@ namespace ImageSource
                 System.IO.File.WriteAllLines(path, taggedFiles);
             }
 
-            // Tag讀檔
+            // ----Tag讀檔
             try
             {
                 // 讀取檔案內容到陣列裡
-                string[] lines = System.IO.File.ReadAllLines(tagPath);
+                var lines = System.IO.File.ReadAllLines(tagPath);
 
-
+                // 拆解字串
                 string[] combobox01Data = lines[0].Split('|');
                 string[] combobox02Data = lines[1].Split('|');
                 string[] combobox03Data = lines[2].Split('|');
                 string[] combobox04Data = lines[3].Split('|');
                 string[] combobox05Data = lines[4].Split('|');
 
+                // 將陣列一個一個加入combobox01~05
                 foreach (string data in combobox01Data)
                 {
                     AddComboBox01.Items.Add(data);
-                    //AddComboBox01.Items.RemoveAt(AddComboBox01.Items.Count - 1);
                     SearchComboBox01.Items.Add(data);
-                    //SearchComboBox01.Items.RemoveAt(SearchComboBox01.Items.Count - 1);
 
                 }
                 foreach (string data in combobox02Data)
                 {
                     AddComboBox02.Items.Add(data);
-                    //AddComboBox02.Items.RemoveAt(AddComboBox02.Items.Count - 1);
                     SearchComboBox02.Items.Add(data);
-                    //SearchComboBox02.Items.RemoveAt(SearchComboBox02.Items.Count - 1);
                 }
                 foreach (string data in combobox03Data)
                 {
                     AddComboBox03.Items.Add(data);
-                   // AddComboBox03.Items.RemoveAt(AddComboBox03.Items.Count - 1);
                     SearchComboBox03.Items.Add(data);
-                    //SearchComboBox03.Items.RemoveAt(SearchComboBox03.Items.Count - 1);
                 }
                 foreach (string data in combobox04Data)
                 {
                     AddComboBox04.Items.Add(data);
-                    //AddComboBox04.Items.RemoveAt(AddComboBox04.Items.Count - 1);
                     SearchComboBox04.Items.Add(data);
-                    //SearchComboBox04.Items.RemoveAt(SearchComboBox04.Items.Count - 1);
                 }
                 foreach (string data in combobox05Data)
                 {
                     AddComboBox05.Items.Add(data);
-                   // AddComboBox05.Items.RemoveAt(AddComboBox05.Items.Count - 1);
                     SearchComboBox05.Items.Add(data);
-                    //SearchComboBox05.Items.RemoveAt(SearchComboBox05.Items.Count - 1);
                 }
-                /*AddComboBox01.Items.RemoveAt(AddComboBox01.Items.Count - 1);
-                SearchComboBox01.Items.RemoveAt(SearchComboBox01.Items.Count - 1);*/
 
             }
             catch
@@ -251,7 +232,7 @@ namespace ImageSource
             if (AddComboBox04.Items.Count == 0) AddComboBox04.Items.Insert(0, "");
             if (AddComboBox05.Items.Count == 0) AddComboBox05.Items.Insert(0, "");
 
-            // 設定combobox的初始值 如上
+            // 設定搜尋combobox的初始值 如上
             if (SearchComboBox01.Items.Count == 0) SearchComboBox01.Items.Insert(0, "");
             if(SearchComboBox02.Items.Count == 0) SearchComboBox02.Items.Insert(0, "");
             if(SearchComboBox03.Items.Count == 0) SearchComboBox03.Items.Insert(0, "");
@@ -264,84 +245,56 @@ namespace ImageSource
 
 
         }
-        private void Window_Activated(object sender, EventArgs e)
-        {
-            /*
-            // 之後要判斷是否是第一次開啟程式 不然會每次開都加一次空白選項
-            AddComboBox01.Items.Add("");
-            AddComboBox02.Items.Add("");
-            AddComboBox03.Items.Add("");
-            AddComboBox04.Items.Add("");
-            AddComboBox05.Items.Add("");*/
-            
-         
-        }
-        
 
-        
-
-        // 用來暫存listbox中拉入的所有檔案路徑
-        List<string> allTheFiles = new List<string>();
-        // 用來永久儲存按下確認鈕後 加上TAG的檔案路徑和TAG
-        List<string> taggedFiles = new List<string>();
-
-        
-
-    
-
-
-        
+        // 按下確認鈕時
         private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            //Listbox1.Items.RemoveAt(Listbox1.SelectedIndex);
-            /*
-            // 將listbox選中的檔案存入路徑列表的index
-            listboxIndex = Listbox1.SelectedIndex;
-            try
-            {
-                // 利用該index打開檔案
-                Process.Start(allTheFiles[listboxIndex]);
-            }
-            catch
-            {
 
-            }*/
             // 按下確認鈕後 將listbox裡有的檔案的檔案路徑存入taggedFiles串列中
-            for (int i = 0; i < allTheFiles.Count; i++)
-            {
-                // 0為路徑 1~5為TAG 6為GUID
-                taggedFiles.Add(allTheFiles[i] + "|" + AddComboBox01.SelectedItem.ToString() + "|" + AddComboBox02.SelectedItem.ToString() + "|" + AddComboBox03.SelectedItem.ToString() + "|" + AddComboBox04.SelectedItem.ToString() + "|" + AddComboBox04.SelectedItem.ToString() + "|" + Guid.NewGuid().ToString("N"));  
-            }
+                for (int i = 0; i < allTheFiles.Count; i++)
+                 {
+                    // 0為路徑 1~5為TAG 6為GUID
+                    taggedFiles.Add(allTheFiles[i] + "|" + AddComboBox01.SelectedItem.ToString() + "|" + AddComboBox02.SelectedItem.ToString() + "|" + AddComboBox03.SelectedItem.ToString() + "|" + AddComboBox04.SelectedItem.ToString() + "|" + AddComboBox04.SelectedItem.ToString() + "|" + Guid.NewGuid().ToString("N"));
+                }
+            
 
             // 重置listbox中的東西跟allthefiles串列以便下次使用
             Listbox1.Items.Clear();
             allTheFiles.Clear();
-            
+
+            // 重整imageArea內的物件
             ImageArea_Refresh();
-            //MessageBox.Show(taggedFiles[1]);
+            
+
+
 
         }
 
+        // 按下移除鈕時
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
 
-
-            /*
-            MessageBox.Show(taggedFiles[2]);
             try
             {
+                // 從暫存陣列移除
                 allTheFiles.RemoveAt(Listbox1.SelectedIndex);
-                Listbox1.Items.RemoveAt(Listbox1.SelectedIndex);
-                
+                // 刪除選中的圖片
+                Listbox1.Items.Remove(Listbox1.SelectedItem);
             }
-            catch
-            {
+            catch { }
+           
 
-            }*/
 
         }
-        
+
+        //按下取消鍵
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //清除Listbox內的東西
+            Listbox1.Items.Clear();
+        }
+
         // 將檔案拉入listbox中時觸發
         private void Listbox1_Drop(object sender, DragEventArgs e)
         {
@@ -349,29 +302,31 @@ namespace ImageSource
 
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
-                
-                string[] dropPath = e.Data.GetData(DataFormats.FileDrop, true) as string[];
-                foreach (string dropFilepath in dropPath)
-                {
 
-                    ListBoxItem listBoxItem = new ListBoxItem();
-                    
-                    if (System.IO.Path.GetExtension(dropFilepath).Contains(".jpg") || System.IO.Path.GetExtension(dropFilepath).Contains(".png") || System.IO.Path.GetExtension(dropFilepath).Contains(".jpeg") || System.IO.Path.GetExtension(dropFilepath).Contains(".gif"))
+                    //string[] dropPath = e.Data.GetData(DataFormats.FileDrop, true) as string[]; // -----------------------------------------------
+                    var dropPath = e.Data.GetData(DataFormats.FileDrop, true) as string[];
+                    foreach (string dropFilepath in dropPath)
                     {
-                        // 儲存這次拉入的檔案路徑
-                        allTheFiles.Add(dropFilepath);
 
-                        listBoxItem.Content = System.IO.Path.GetFileNameWithoutExtension(dropFilepath);
+                        ListBoxItem listBoxItem = new ListBoxItem();
+
+                        if (System.IO.Path.GetExtension(dropFilepath).Contains(".jpg") || System.IO.Path.GetExtension(dropFilepath).Contains(".png") || System.IO.Path.GetExtension(dropFilepath).Contains(".jpeg") || System.IO.Path.GetExtension(dropFilepath).Contains(".gif"))
+                        {
+
+                                // 儲存這次拉入的檔案路徑
+                                allTheFiles.Add(dropFilepath);
+
+                                listBoxItem.Content = System.IO.Path.GetFileNameWithoutExtension(dropFilepath);
 
 
-                        
-                        
-                        listBoxItem.ToolTip = dropPath;
-                        Listbox1.Items.Add(listBoxItem);
-                        
+
+
+                                listBoxItem.ToolTip = dropPath;
+                                Listbox1.Items.Add(listBoxItem);
+                        }
+
                     }
-
-                }
+                
 
 
             }
@@ -423,8 +378,8 @@ namespace ImageSource
 
             try
             {
-                // 取得觸發此事件的物件的ID
-                string theID = ((imageShow)sender).TheIndex;
+              
+                var theID = ((imageShow)sender).TheIndex;
 
                 // 搜尋含有此ID的串列
                 for (int i = 0; i < taggedFiles.Count; i++)
@@ -452,6 +407,7 @@ namespace ImageSource
 
         }
 
+        // 點到圖片時顯示該圖片帶有的TAG
         private void ShowImformation(object sender, EventArgs e)
         {
             if (((imageShow)sender).Selected == true )
@@ -463,27 +419,17 @@ namespace ImageSource
                 AddComboBox05.SelectedItem = ((imageShow)sender).Tag5;
             }
             
-
-
-
         }
 
-        private void LoseFocus(object sender, EventArgs e)
-        {
-            ((imageShow)sender).Selected = false;
-            
 
-        }
 
-        private void CancelBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Listbox1.Items.Clear();
 
-        }
-
+        // 新增自訂TAG的方法
         private void AddTagBtn_Click(object sender, RoutedEventArgs e)
         {
+
             string addto = AddToComboBox.Text;
+
             // 如果按下了按鈕 並且使用者有在輸入框內輸入文字 
             if (AddTagTextBox.Text != "")
             {
@@ -532,6 +478,7 @@ namespace ImageSource
             }
         }
 
+        // 設定[加入到....]的combobox選項的初始值
         private void AddToComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             AddToComboBox.Items.Add("Tag1");
@@ -541,7 +488,7 @@ namespace ImageSource
             AddToComboBox.Items.Add("Tag5");
         }
 
-        // 搜尋並更新ImageArea的自訂方法
+        // 搜尋並更新ImageArea的自訂方法 這邊超級吃資源------------------------------------------------
         public void ImageArea_Refresh()
         {
             // 先重置ImageArea內的東西
@@ -553,7 +500,8 @@ namespace ImageSource
             for (int i = 0; i < taggedFiles.Count ; i++)
             {   //                                                       0     1    2    3    4    5   6
                 // 這個tempforsearch陣列需要能容納至少7個變數 分別為(檔案路徑|Tag1|Tag2|Tag3|Tag4|Tag5|ID)
-                string[] tempforSearch = new string[10];
+                //string[] tempforSearch = new string[10];-------------------------------------------------------------------------------------
+                var tempforSearch = new string[10];
 
                 // 先一個一個拆解taggedFiles內的東西
                 tempforSearch = taggedFiles[i].Split('|');
@@ -585,10 +533,9 @@ namespace ImageSource
                     {
                         needTomatchNumber++;
                     }
-                //MessageBox.Show(SearchComboBox04.SelectedItem.ToString());
                 
 
-                // 逐一比對Tag1~Tag5 ((OMG想了好幾遍才寫出只會顯示聯集的搜尋
+                // 逐一比對Tag1~Tag5 
                 for (int tag = 1; tag <= 5; tag++)
                 {
 
@@ -654,13 +601,15 @@ namespace ImageSource
                             }
 
                         }
-
+                    
                 }
 
                 // 如果比對符合 加入一個imageShow物件 並將現在的數據指定給他
                 if (nowMatch >= needTomatchNumber)
                 {
+                    // 新增imageShow物件
                     imageShow imageshow = new imageShow();
+
                     // 圖片路徑存在temforSearch的第一個 將他指定給imageShow物件
                     imageshow.TheImagePath = tempforSearch[0];
 
@@ -670,12 +619,8 @@ namespace ImageSource
                     imageshow.deletebtn_pressed += new EventHandler(deletebtn_pressed);
                     imageshow.Selected_image += new EventHandler(ShowImformation);
 
-
-                    // 將專屬ID加入此物件 以後要刪除還是幹嘛都可以用
+                    // 將專屬GUID加入此物件 以後要刪除還是幹嘛都可以用
                     imageshow.TheIndex = tempforSearch[6];
-
-                    //不需要這行 (我寫在imageShow物件了 他會自己抓)
-                    //imageshow.FileName = "123";
 
                     // 將圖片屬性存入自訂元件
                     imageshow.Tag1 = tempforSearch[1];
@@ -690,9 +635,12 @@ namespace ImageSource
                     // 重置判斷用的變數
                     nowMatch = 0;
                     needTomatchNumber = 0;
+
+                    
                 }
 
             }
+            
         }
 
         private void SearchStartBtn_Click(object sender, RoutedEventArgs e)
@@ -700,16 +648,14 @@ namespace ImageSource
             ImageArea_Refresh();
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        private void LoseFocus(object sender, EventArgs e)
         {
-            //imageShow.Selected = false;
-            
-            
+            ((imageShow)sender).Selected = false;
         }
 
-        private void AddComboBox01_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //ChangeTag(this, null);
-        }
+
+
+
+
     }
 }
