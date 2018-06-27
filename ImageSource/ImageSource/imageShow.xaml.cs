@@ -65,10 +65,17 @@ namespace ImageSource
             }
             set
             {
-                // 設置此函數時 取得設置時的數值(就是檔案路徑)並存入imagetemp變數
-                BitmapImage imagetemp = new BitmapImage(new Uri(value.ToString(), UriKind.Absolute));
-                Preview_Image.Source = imagetemp;
-                //FileName.Text = value.ToString();
+                try
+                {
+                    // 設置此函數時 取得設置時的數值(就是檔案路徑)並存入imagetemp變數
+                    BitmapImage imagetemp = new BitmapImage(new Uri(value.ToString(), UriKind.Absolute));
+                    Preview_Image.Source = imagetemp;
+                    //FileName.Text = value.ToString();
+                }
+                catch
+                {
+                    MessageBox.Show("遺失了一張圖片路徑,這可能是因為C:\\temp中的文件遭到手動修改" + "\r\n" + ",建議您在左側刪除顯示遺失的物件");
+                }
             }
             
         }
@@ -190,6 +197,7 @@ namespace ImageSource
         {
             select();
             Selected_image(this, null);
+            Process.Start(Preview_Image.Source.ToString());
             
         }
 

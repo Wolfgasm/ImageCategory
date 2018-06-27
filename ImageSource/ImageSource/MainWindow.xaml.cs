@@ -62,7 +62,7 @@ namespace ImageSource
             string[] temp = new string[5];
 
             // 儲存第1個combobox
-            for (int i = 1; i < AddComboBox01.Items.Count; i++)
+            for (int i = 0; i < AddComboBox01.Items.Count; i++)
             {
                 AddComboBox01.SelectedIndex = i;
                 // 避免每次存檔都多存一個空格
@@ -73,53 +73,60 @@ namespace ImageSource
                 else { temp[0] += (AddComboBox01.Text ); }
             }
             // 儲存第2個combobox
-            for (int i = 1; i < AddComboBox02.Items.Count; i++)
+            for (int i = 0; i < AddComboBox02.Items.Count; i++)
             {
                 AddComboBox02.SelectedIndex = i;
 
                 // 避免每次存檔都多存一個空格
-                if (!(i == AddComboBox01.Items.Count - 1))
+                if (!(i == AddComboBox02.Items.Count - 1))
                 {
                     temp[1] += (AddComboBox02.Text + "|");
                 }
                 else { temp[1] += (AddComboBox02.Text); }
             }
             // 儲存第3個combobox
-            for (int i = 1; i < AddComboBox03.Items.Count; i++)
+            for (int i = 0; i < AddComboBox03.Items.Count; i++)
             {
                 AddComboBox03.SelectedIndex = i;
 
                 // 避免每次存檔都多存一個空格
-                if (!(i == AddComboBox01.Items.Count - 1))
+                if (!(i == AddComboBox03.Items.Count - 1))
                 {
                     temp[2] += (AddComboBox03.Text + "|");
                 }
                 else { temp[2] += (AddComboBox03.Text); }
             }
             // 儲存第4個combobox
-            for (int i = 1; i < AddComboBox04.Items.Count; i++)
+            for (int i = 0; i < AddComboBox04.Items.Count; i++)
             {
                 AddComboBox04.SelectedIndex = i;
 
                 // 避免每次存檔都多存一個空格
-                if (!(i == AddComboBox01.Items.Count - 1))
+                if (!(i == AddComboBox04.Items.Count - 1))
                 {
                     temp[3] += (AddComboBox04.Text + "|");
                 }
                 else { temp[3] += (AddComboBox04.Text); }
             }
             // 儲存第5個combobox
-            for (int i = 1; i < AddComboBox05.Items.Count; i++)
+            for (int i = 0; i < AddComboBox05.Items.Count; i++)
             {
                 AddComboBox05.SelectedIndex = i;
 
                 // 避免每次存檔都多存一個空格
-                if (!(i == AddComboBox01.Items.Count - 1))
+                if (!(i == AddComboBox05.Items.Count - 1))
                 {
                     temp[4] += (AddComboBox05.Text + "|");
                 }
                 else { temp[4] += (AddComboBox05.Text); }
             }
+            /*
+            foreach (string temps in temp)
+            {
+                temps.Trim(new Char[] { '|' });
+            }*/
+
+
 
             // TAG存檔
             System.IO.File.WriteAllLines(tagPath, temp);
@@ -127,16 +134,11 @@ namespace ImageSource
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
             
             // 設定combobox的初始值
-            AddComboBox01.Items.Insert(0, "");
-            AddComboBox02.Items.Insert(0, "");
-            AddComboBox03.Items.Insert(0, "");
-            AddComboBox04.Items.Insert(0, "");
-            AddComboBox05.Items.Insert(0, "");
+            if(SearchComboBox01.Items.Count == 0) SearchComboBox01.Items.Insert(0, "");
             
-            // 設定combobox的初始值
-            SearchComboBox01.Items.Insert(0, "");
             SearchComboBox02.Items.Insert(0, "");
             SearchComboBox03.Items.Insert(0, "");
             SearchComboBox04.Items.Insert(0, "");
@@ -182,6 +184,8 @@ namespace ImageSource
             {
                 // 讀取檔案內容到陣列裡
                 string[] lines = System.IO.File.ReadAllLines(tagPath);
+
+
                 string[] combobox01Data = lines[0].Split('|');
                 string[] combobox02Data = lines[1].Split('|');
                 string[] combobox03Data = lines[2].Split('|');
@@ -240,7 +244,19 @@ namespace ImageSource
             }
 
 
+            // 設定combobox的初始值 第一次打開程式時加入一個空白選項
+            if (AddComboBox01.Items.Count == 0) AddComboBox01.Items.Insert(0, "");
+            if (AddComboBox02.Items.Count == 0) AddComboBox02.Items.Insert(0, "");
+            if (AddComboBox03.Items.Count == 0) AddComboBox03.Items.Insert(0, "");
+            if (AddComboBox04.Items.Count == 0) AddComboBox04.Items.Insert(0, "");
+            if (AddComboBox05.Items.Count == 0) AddComboBox05.Items.Insert(0, "");
 
+            // 設定combobox的初始值 如上
+            if (SearchComboBox01.Items.Count == 0) SearchComboBox01.Items.Insert(0, "");
+            if(SearchComboBox02.Items.Count == 0) SearchComboBox02.Items.Insert(0, "");
+            if(SearchComboBox03.Items.Count == 0) SearchComboBox03.Items.Insert(0, "");
+            if(SearchComboBox04.Items.Count == 0) SearchComboBox04.Items.Insert(0, "");
+            if(SearchComboBox05.Items.Count == 0) SearchComboBox05.Items.Insert(0, "");
 
             // 重整頁面
             ImageArea_Refresh();
@@ -569,6 +585,7 @@ namespace ImageSource
                     {
                         needTomatchNumber++;
                     }
+                //MessageBox.Show(SearchComboBox04.SelectedItem.ToString());
                 
 
                 // 逐一比對Tag1~Tag5 ((OMG想了好幾遍才寫出只會顯示聯集的搜尋

@@ -34,6 +34,8 @@
 
             <Rectangle Fill="LightGray" Stroke="Gray" StrokeThickness="5">
             </Rectangle>
+            <TextBlock Height="50" Width="300" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="120 20 0 0" FontSize="20" FontFamily="Microsoft JhengHei">拉入你想要附加標籤的圖片
+            </TextBlock>
             <ListBox HorizontalAlignment="Center" VerticalAlignment="Top" AllowDrop="True" Width="323"  Height="280" Margin="50,50,50,50"  Name="Listbox1" Drop="Listbox1_Drop"></ListBox>
 
             <Grid Grid.Row="1" >
