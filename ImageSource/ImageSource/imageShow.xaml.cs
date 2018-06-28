@@ -140,12 +140,17 @@ namespace ImageSource
             }
             set
             {
-                TheFileName.Text = value.ToString();
+                try
+                {
+                    TheFileName.Text = value.ToString();
+                }
+                catch
+                {
+                }
             }
 
 
         }
-
         public string Tag1
         {
             get
@@ -158,7 +163,6 @@ namespace ImageSource
             }
 
         }
-
         public string Tag2
         {
             get
@@ -230,9 +234,6 @@ namespace ImageSource
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
             deletebtn_pressed(this, null);
-
-         
-
         }
 
         
@@ -253,9 +254,15 @@ namespace ImageSource
             select();
             Selected_image(this, null);
             // Process.Start(Preview_Image.Source.ToString());
-            Process.Start(thedata);
-                       
-            
+
+            try
+            {
+                Process.Start(thedata);
+            }
+            catch
+            {
+
+            }
         }
 
         private void TheFileName_Loaded(object sender, RoutedEventArgs e)
